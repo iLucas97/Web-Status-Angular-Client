@@ -1,0 +1,59 @@
+<div class="col-md-12 text-center" *ngIf="isLoading">
+        <div class="loader text-center"></div>
+</div>
+<div class="col-md-12" *ngIf="!isLoading">
+    <form>
+        <label for="typeInsert">Type of insert</label>
+        <select [(ngModel)]="addingMode" [ngModelOptions]="{standalone: true}" class="form-control" id="typeInsert">
+            <option *ngFor="let mode of addingModes">{{mode}}</option>
+
+        </select>
+    </form>
+    <form *ngIf="addingMode == 'MANUAL'" class="px-top-20">
+        <div class="form-group">
+            <label for="nomeServer">Nome Server</label>
+            <input type="text" [(ngModel)]="newServer.name" [ngModelOptions]="{standalone: true}" class="form-control"
+                id="nomeServer" aria-describedby="descrServName" placeholder="Name">
+            <small id="descrServName" class="form-text text-muted">The server name</small>
+        </div>
+        <div class="form-group">
+            <label for="protocolServer">Protocol</label>
+            <select [(ngModel)]="newServer.protocol" [ngModelOptions]="{standalone: true}" class="form-control" id="protocolServer">
+                <option *ngFor="let protocol of protocols">{{protocol}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="domainServer">Dominio</label>
+            <input type="text" [(ngModel)]="newServer.domain" [ngModelOptions]="{standalone: true}" class="form-control"
+                id="domainServer" aria-describedby="domainServerDescr" placeholder="Domain">
+            <small id="domainServerDescr" class="form-text text-muted">The server domain</small>
+        </div>
+        <div class="form-group">
+            <label for="portServer">Port</label>
+            <input type="text" [(ngModel)]="newServer.port" [ngModelOptions]="{standalone: true}" class="form-control"
+                id="portServer" aria-describedby="portServerDescr" placeholder="Port">
+            <small id="portServerDescr" class="form-text text-muted">The server port</small>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success margin-right-15" (click)="onAddServer()">Add</button>
+            <button type="button" class="btn btn-warning margin-right-15" (click)="init()">Reset</button>
+            <button type="button" class="btn btn-danger margin-right-15" routerLink="/">Annulla</button>
+        </div>
+
+    </form>
+    <form *ngIf="addingMode == 'TEXT'" class="px-top-20">
+        <div class="form-group">
+            <label for="textSearch">Text detect url</label>
+            <textarea class="form-control" id="textSearch" rows="10" [(ngModel)]="textWithUrl" [ngModelOptions]="{standalone: true}">
+        </textarea>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success margin-right-15" (click)="onAddServer()">Aggiungi</button>
+            <button type="button" class="btn btn-warning margin-right-15" (click)="init()">Reset</button>
+            <button type="button" class="btn btn-danger margin-right-15" routerLink="/">Annulla</button>
+        </div>
+    </form>
+
+
+</div>
